@@ -1,0 +1,59 @@
+﻿<Window x:Class="Project.WindowFolder.StartWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Project.WindowFolder"
+        mc:Ignorable="d"
+        Title="Начальное окно" Height="800" Width="1200"
+        Icon="/Project;component/ResourceFolder/ImageFolder/AuthLogo.png"
+        WindowStyle="None"
+        Loaded="Window_Loaded"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+        Background="{x:Null}">
+    <Grid>
+        <Border Style="{DynamicResource BaseBorder}"
+                Margin="0"
+                MouseDown="Border_MouseDown">
+            <Border.Background>
+                <ImageBrush ImageSource="/Project;component/ResourceFolder/ImageFolder/Background.jpg"/>
+            </Border.Background>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="10"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="10"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="10"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="10"/>
+                </Grid.RowDefinitions>
+                <!--<StackPanel Orientation="Horizontal" HorizontalAlignment="Left"
+                            Grid.Row="1" Grid.Column="1">
+                    <Image Height="30"
+                           HorizontalAlignment="Left"
+                           Source="/ResourceFolder/ImageFolder/Logo.png"/>
+                </StackPanel>-->
+
+                <StackPanel Grid.Column="1" Grid.Row="1" Height="30"
+                            HorizontalAlignment="Right" Margin="10"
+                            Orientation="Horizontal">
+                    <Image Height="30" x:Name="RollUpIm"
+                           HorizontalAlignment="Right"
+                           Source="/Project;component/ResourceFolder/ImageFolder/свернуть.png"
+                           MouseLeftButtonDown="RollUpIm_MouseLeftButtonDown"/>
+                    <Image Height="23" x:Name="CloseIm"
+                           HorizontalAlignment="Right"
+                           Source="/Project;component/ResourceFolder/ImageFolder/Close.jpg"
+                           MouseLeftButtonDown="CloseIm_MouseLeftButtonDown"/>
+                </StackPanel>
+                <Frame Grid.Row="2" Grid.Column="1" x:Name="MainFrame" Margin="10"
+                       NavigationUIVisibility="Hidden"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

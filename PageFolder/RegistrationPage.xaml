@@ -1,0 +1,72 @@
+﻿<Page x:Class="Project.PageFolder.RegistrationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Project.PageFolder"
+      mc:Ignorable="d" 
+      MinHeight="600" MinWidth="400"
+      MaxHeight="600" MaxWidth="400"
+      Title="Авторизация">
+    <Border BorderBrush="{x:Null}" BorderThickness="1" CornerRadius="20"
+                  Background="{StaticResource DarkGrey}">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="35" Direction="-90"
+                              RenderingBias="Quality" ShadowDepth="4"/>
+        </Border.Effect>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="180"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="70"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="110"/>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Image Grid.Row="1" Grid.Column="2"
+                   Source="/Project;component/ResourceFolder/ImageFolder/AuthLogo.png"
+                   Margin="10"/>
+            <Label Grid.Row="2" Grid.Column="1"
+                   Content="Логин" Style="{StaticResource NormalLabel}"/>
+            <TextBox x:Name="LoginTb" Grid.Row="2" Grid.Column="2"
+                     Foreground="White"/>
+            <Label Grid.Row="4" Grid.Column="1"
+                   Content="Пароль" Style="{StaticResource NormalLabel}"/>
+            <TextBox x:Name="PasswordTb" Grid.Row="4" Grid.Column="2"
+                     Foreground="White"/>
+            <Label Grid.Row="6" Grid.Column="1"
+                   Style="{StaticResource NormalLabel}">
+                <TextBlock Text="Повторите пароль"
+                           TextWrapping="Wrap"
+                           Background="{x:Null}"/>
+            </Label>
+            <TextBox x:Name="PasswordDoubleTb" Grid.Row="6" Grid.Column="2"
+                     Foreground="White"/>
+            <StackPanel Grid.Row="8" Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Margin="50,15,50,0">
+                <Button x:Name="RegBtn"
+                        Content="Зарегестрироваться"
+                        Height="40"
+                        Width="200"
+                        Click="RegBtn_Click"/>
+                <Button x:Name="BackBtn"
+                        Content="Назад"
+                        Height="40"
+                        Width="200"
+                        Click="BackBtn_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Page>
