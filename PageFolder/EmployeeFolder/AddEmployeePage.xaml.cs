@@ -16,24 +16,33 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace Project.PageFolder
+namespace Project.PageFolder.EmployeeFolder
 {
     /// <summary>
-    /// Логика взаимодействия для RegistrationPage.xaml
+    /// Логика взаимодействия для AddEmployeePage.xaml
     /// </summary>
-    public partial class RegistrationPage : Page
+    public partial class AddEmployeePage : Page
     {
-        public RegistrationPage()
-        {
-            InitializeComponent();
-        }
         SqlConnection sqlConnection = new SqlConnection(
             @"Data Source=(local)\SQLEXPRESS;" +
             "Initial Catalog=PrilutskiyProject;" +
             "Integrated Security=True");
         SqlCommand sqlCommand;
+        CBClass cB;
+        SqlDataReader dataReader;
 
-        private void RegBtn_Click(object sender, RoutedEventArgs e)
+        public AddEmployeePage()
+        {
+            InitializeComponent();
+            cB = new CBClass();
+        }
+
+        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        {
+            StartWindow.OpenPage(new EmployeeAdminPage());
+        }
+
+        private void AuthBtn_Click(object sender, RoutedEventArgs e)
         {
             string znak = "!@#$%^&";
             string cif = "1234567890";
@@ -50,10 +59,25 @@ namespace Project.PageFolder
                 MBClass.ErrorMB("Введите пароль");
                 PasswordTb.Focus();
             }
-            else if (string.IsNullOrWhiteSpace(PasswordDoubleTb.Text))
+            else if (string.IsNullOrWhiteSpace(NameTb.Text))
             {
-                MBClass.ErrorMB("Введите пароль еще раз");
-                PasswordDoubleTb.Focus();
+                MBClass.ErrorMB("Введите имя");
+                 NameTb.Focus();
+            }
+            else if (string.IsNullOrWhiteSpace(SurnameTb.Text))
+            {
+                MBClass.ErrorMB("Введите фамилию");
+                SurnameTb.Focus();
+            }
+            else if (PostChB.SelectedIndex < 0)
+            {
+                MBClass.ErrorMB("Выберите должность");
+                PostChB.Focus();
+            }
+            else if (RoleChB.SelectedIndex < 0)
+            {
+                MBClass.ErrorMB("Выберите роль");
+                RoleChB.Focus();
             }
             else if (PasswordTb.Text.IndexOfAny(znak.ToCharArray()) < 0)
             {
@@ -79,13 +103,9 @@ namespace Project.PageFolder
                     " заглавную букву");
                 PasswordTb.Focus();
             }
-            else if(PasswordTb.Text != PasswordDoubleTb.Text)
-            {
-                MBClass.ErrorMB("Пароли должны совпадать");
-                PasswordDoubleTb.Focus();
-            }
             else
             {
+                int? id = null;
                 try
                 {
                     sqlConnection.Open();
@@ -93,12 +113,30 @@ namespace Project.PageFolder
                         "Insert Into dbo.[User] " +
                         "(UserLogin,UserPassword,IdRole) " +
                         $"Values ('{LoginTb.Text}'," +
-                        $"'{PasswordTb.Text}', 3)",
+                        $"'{PasswordTb.Text}'," +
+                        $"'{RoleChB.SelectedValue.ToString()}')",
                         sqlConnection);
                     sqlCommand.ExecuteNonQuery();
-                    MBClass.InfoMB("Вы успешно зарегестрированы");
+                    sqlCommand = new SqlCommand(
+                    "SELECT * From dbo.[User] " +
+                    $"Where UserLogin='{LoginTb.Text}'",
+                    sqlConnection);
+                    dataReader = sqlCommand.ExecuteReader();
+                    dataReader.Read();
+                    id = int.Parse(dataReader[0].ToString());
+                    dataReader.Close();
+                    sqlCommand = new SqlCommand(
+                        "Insert Into dbo.[Employee] " +
+                        "(UserId,IdPost,EmployeeName,EmployeeSurname) " +
+                        $"Values ('{id.ToString()}'," +
+                        $"'{PostChB.SelectedValue.ToString()}'," +
+                        $"'{NameTb.Text}'," +
+                        $"'{SurnameTb.Text}')",
+                        sqlConnection);
+                    sqlCommand.ExecuteNonQuery();
+                    MBClass.InfoMB("Работник добавлен");
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MBClass.ErrorMB(ex);
                 }
@@ -109,9 +147,10 @@ namespace Project.PageFolder
             }
         }
 
-        private void BackBtn_Click(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            StartWindow.OpenPage(new AuthorizationPage());
+            cB.LoadCB(RoleChB, CBClass.CBType.Role);
+            cB.LoadCB(PostChB, CBClass.CBType.Post);
         }
     }
 }

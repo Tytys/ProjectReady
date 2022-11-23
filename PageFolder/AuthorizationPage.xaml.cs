@@ -25,8 +25,8 @@ namespace Project.PageFolder
     public partial class AuthorizationPage : Page
     {
         SqlConnection sqlConnection = new SqlConnection(
-            @"Data Source=ASUS583\SQLEXPRESS;" +
-            "Initial Catalog=Prilutskiy;" +
+            @"Data Source=(local)\SQLEXPRESS;" +
+            "Initial Catalog=PrilutskiyProject;" +
             "Integrated Security=True");
         SqlCommand sqlCommand;
         SqlDataReader dataReader;
@@ -59,10 +59,16 @@ namespace Project.PageFolder
                     switch (dataReader[3].ToString())
                     {
                         case "1":
-                            MBClass.InfoMB("Администратор");
+                            StartWindow.OpenPage(new AdminPageFolder.AdminPage());
+                            ChangeXML();
                             break;
                         case "2":
-                            MBClass.InfoMB("Гость");
+                            StartWindow.OpenPage(new VacationerFolder.VacationerAdminPage());
+                            ChangeXML();
+                            break;
+                        case "3":
+                            StartWindow.OpenPage(new ReceptionFolder.ReceptionPage());
+                            ChangeXML();
                             break;
                     }
                 }
@@ -84,7 +90,79 @@ namespace Project.PageFolder
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            
+            load = new XmlDocument();
+            load.Load(@"C:\Users\ififi\Source\Repos\Project\ResourceFolder\LoadFile.xml");
+            xmlElement = load.DocumentElement;
+            if (xmlElement != null)
+            {
+                foreach (XmlNode node in xmlElement)
+                {
+                    if (node?.FirstChild.InnerText == "1")
+                    {
+                        RememberChB.IsChecked = true;
+                    }
+                    else if (node?.FirstChild.InnerText == "0")
+                    {
+                        break;
+                    }
+                    if (node.Name == "user")
+                    {
+                        foreach (XmlElement el in node)
+                        {
+                            if (el?.Name == "login")
+                            {
+                                LoginTb.Text = el.InnerText;
+                            }
+                            if (el?.Name == "password")
+                            {
+                                PasswordTb.Text = el.InnerText;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private void ChangeXML()
+        {
+            load = new XmlDocument();
+            load.Load(@"C:\Users\ififi\Source\Repos\Project\ResourceFolder\LoadFile.xml");
+            xmlElement = load.DocumentElement;
+            bool Check = false;
+            if (xmlElement != null)
+            {
+                foreach (XmlNode node in xmlElement)
+                {
+                    if (RememberChB.IsChecked == false)
+                    {
+                        node.FirstChild.InnerText = "0";
+                        break;
+                    }
+                    else if(RememberChB.IsChecked == true)
+                    {
+                        node.FirstChild.InnerText = "1";
+                        Check = true;
+                    }
+                    if(Check)
+                    {
+                        if (node.Name == "user")
+                        {
+                            foreach (XmlElement el in node)
+                            {
+                                if (el?.Name == "login")
+                                {
+                                    el.InnerText = LoginTb.Text;
+                                }
+                                if (el?.Name == "password")
+                                {
+                                    el.InnerText = PasswordTb.Text;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            load.Save(@"C:\Users\ififi\Source\Repos\Project\ResourceFolder\LoadFile.xml");
         }
     }
 }

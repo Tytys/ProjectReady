@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Project.WindowFolder"
         mc:Ignorable="d"
-        Title="Начальное окно" Height="800" Width="1200"
+        Title="Начальное окно" Height="1200" Width="1600"
         Icon="/Project;component/ResourceFolder/ImageFolder/AuthLogo.png"
         WindowStyle="None"
         Loaded="Window_Loaded"

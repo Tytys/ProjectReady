@@ -58,37 +58,7 @@ namespace Project.WindowFolder
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            load = new XmlDocument();
-            load.Load(@"C:\Users\Админ\source\repos\Project\ResourceFolder\LoadFile.xml");
-            xmlElement = load.DocumentElement;
-            if (xmlElement != null)
-            {
-                foreach (XmlNode node in xmlElement)
-                {
-                    if (node?.FirstChild.InnerText == "1")
-                    {
-                        page.RememberChB.IsChecked = true;
-                    }
-                    else if(node?.FirstChild.InnerText == "0")
-                    {
-                        break;
-                    }
-                    if(node.Name == "user")
-                    {
-                        foreach (XmlElement el in node)
-                        {
-                            if(el?.Name == "login")
-                            {
-                                page.LoginTb.Text = el.InnerText;
-                            }
-                            if (el?.Name == "password")
-                            {
-                                page.PasswordTb.Text = el.InnerText;
-                            }
-                        }
-                    }
-                }
-            }
+            
         }
     }
 }
