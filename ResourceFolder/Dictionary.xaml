@@ -90,7 +90,7 @@
         <Setter Property="Background" Value="{StaticResource DarkGrey}"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="{StaticResource LightBlue}"/>
+        <Setter Property="Foreground" Value="Black"/>
         <Setter Property="FontSize" Value="16"/>
         <Style.Resources>
             <Style TargetType="Border">
@@ -100,6 +100,7 @@
     </Style>
 
     <Style TargetType="ComboBox" BasedOn="{StaticResource BaseControl}">
+        <Setter Property="Foreground" Value="White"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="ComboBox">

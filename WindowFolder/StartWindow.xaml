@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Project.WindowFolder"
         mc:Ignorable="d"
         Title="Начальное окно" Height="1200" Width="1600"
-        Icon="/Project;component/ResourceFolder/ImageFolder/AuthLogo.png"
+        Icon="/ResourceFolder/ImageFolder/AuthLogo.png"
         WindowStyle="None"
         Loaded="Window_Loaded"
         AllowsTransparency="True"

@@ -36,7 +36,7 @@
                Source="/Project;component/ResourceFolder/ImageFolder/AuthLogo.png"
                Margin="10"/>
             <Label Style="{DynamicResource LabelLogo}"
-               Content="Панель работников" Grid.Column="2" Grid.Row="1"/>
+               Content="Список отдыхающих" Grid.Column="2" Grid.Row="1"/>
             <Menu Grid.Row="3" Grid.Column="1" 
               Grid.ColumnSpan="2"
               Style="{StaticResource BaseControl}"
